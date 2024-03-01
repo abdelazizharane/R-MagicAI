@@ -18,7 +18,7 @@ with st.sidebar:
             st.warning('Veuillez entrer vos informations d\'identification replicate!', icon='⚠️')
         else:
             st.success('Passez à la saisie de votre question à notre chatbot', icon='👉🏿')
-    os.environ['REPLICATE_API_TOKEN'] = replicate_api #Mon API replicate
+    os.environ['REPLICATE_API_TOKEN'] =  replicate_api #Mon API replicate
 
     st.subheader('Modèles et paramètres') # Le choix de deux modèles LLama2
     selected_model = st.sidebar.selectbox('Choissisez un modèle Llama2', ['Llama2-7B', 'Llama2-13B'], key='selected_model')
