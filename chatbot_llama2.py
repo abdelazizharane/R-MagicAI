@@ -1,5 +1,5 @@
 import streamlit as st
-import replicate
+#import replicate
 import os
 
 # Titre de notre chatbot
