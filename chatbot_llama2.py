@@ -1,3 +1,5 @@
+pip install replicate
+
 import streamlit as st
 import replicate
 import os
