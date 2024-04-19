@@ -3,11 +3,11 @@ import replicate
 import os
 
 # Titre de notre chatbot
-st.set_page_config(page_title="Llama 2 Chatbot🦙")
+st.set_page_config(page_title="MedChat Test")
 
-# Insertion de votre clé, API de Replicate pour accès au chatbot
+# Insertion de notre clé, API de Replicate pour accès au chatbot
 with st.sidebar:
-    st.title('Llama 2 Chatbot🦙')
+    st.title('MedChat Test')
     st.write('Notre chatbot est créé à l\'aide du modèle open source Llama 2 LLM de Meta.')
     if 'REPLICATE_API_TOKEN' in st.secrets:
         st.success('Clé API déjà fournie !', icon='✅')
@@ -18,7 +18,7 @@ with st.sidebar:
             st.warning('Veuillez entrer vos informations d\'identification replicate!', icon='⚠️')
         else:
             st.success('Passez à la saisie de votre question à notre chatbot', icon='👉🏿')
-    os.environ['REPLICATE_API_TOKEN'] =  replicate_api #Mon API replicate
+            os.environ['REPLICATE_API_TOKEN'] ="r8_60RvV9wYTdSeR22HysNJHnRKsSKqWfe3qCXpC"   #Mon API replicate
 
     st.subheader('Modèles et paramètres') # Le choix de deux modèles LLama2
     selected_model = st.sidebar.selectbox('Choissisez un modèle Llama2', ['Llama2-7B', 'Llama2-13B'], key='selected_model')
@@ -35,7 +35,7 @@ with st.sidebar:
 if "messages" not in st.session_state.keys():
     st.session_state.messages = [{"role": "assistant", "content": "How may I assist you today?"}]
 
-# Affichage ou nettoyage des messages de discussion
+# Affichage des messages de discussion
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.write(message["content"])
@@ -44,7 +44,7 @@ def suppression_historique_chatbot():
     st.session_state.messages = [{"role": "assistant", "content": "How may I assist you today?"}]
 st.sidebar.button('Clear Chat History', on_click=suppression_historique_chatbot)
 
-# Fonction pour générer la réponse LLaMA2. Refactorisé à partir de https://github.com/a16z-infra/llama2-chatbot
+# Fonction pour générer la réponse LLaMA2 refactorisé à partir de llama2-chatbot
 def generation_reponse_llama2(prompt_input):
     string_dialogue = "Vous êtes un assistant utile. Vous ne répondez pas en tant que 'user' et ne prétendez pas être un 'user'. Vous ne répondez qu'une seule fois en tant que'Assistant'."
     for dict_message in st.session_state.messages:
@@ -52,7 +52,7 @@ def generation_reponse_llama2(prompt_input):
             string_dialogue += "User: " + dict_message["content"] + "\n\n"
         else:
             string_dialogue += "Assistant: " + dict_message["content"] + "\n\n"
-    output = replicate.run('a16z-infra/llama13b-v2-chat:df7690f1994d94e96ad9d568eac121aecf50684a0b0963b25a41cc40061269e5', 
+    output = replicate.run('a16z-infra/llama13b-v2-chat:df7690f1994d94e96ad9d568eac121aecf50684a0b0963b25a41cc40061269e5',
                            input={"prompt": f"{string_dialogue} {prompt_input} Assistant: ",
                                   "temperature":temperature, "top_p":top_p, "max_length":max_length, "repetition_penalty":1})
     return output
