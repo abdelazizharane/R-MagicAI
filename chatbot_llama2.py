@@ -33,7 +33,7 @@ with st.sidebar:
 
 # Stockage des réponses générées par notre LLM
 if "messages" not in st.session_state.keys():
-    st.session_state.messages = [{"role": "assistant", "content": "How may I assist you today?"}]
+    st.session_state.messages = [{"role": "assistant", "content": "HJe suis MedChat, comment je peux vous assiter ? Posez vos questions, je suis là pour vous aider !"}]
 
 # Affichage des messages de discussion
 for message in st.session_state.messages:
