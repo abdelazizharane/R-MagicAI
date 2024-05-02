@@ -46,7 +46,7 @@ st.sidebar.button('Supprimez votre historique', on_click=suppression_historique_
 
 # Fonction pour générer la réponse LLaMA2 refactorisé à partir de llama2-chatbot
 def generation_reponse_llama2(prompt_input):
-    string_dialogue = "You are a useful assistant. You do not respond as a 'user' or pretend to be a 'user'. You only respond once as an 'assistant'."
+    string_dialogue = "Vous êtes un assistant utile. Vous ne répondez pas en tant que 'user' et ne prétendez pas être un 'user'. Vous ne répondez qu'une seule fois en tant 'assistant'."
     for dict_message in st.session_state.messages:
         if dict_message["role"] == "user":
             string_dialogue += "User: " + dict_message["content"] + "\n\n"
