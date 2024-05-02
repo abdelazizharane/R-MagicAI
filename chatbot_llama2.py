@@ -41,12 +41,12 @@ for message in st.session_state.messages:
         st.write(message["content"])
 
 def suppression_historique_chatbot():
-    st.session_state.messages = [{"role": "assistant", "content": "How may I assist you today?"}]
-st.sidebar.button('Clear Chat History', on_click=suppression_historique_chatbot)
+    st.session_state.messages = [{"role": "assistant", "content": "Comment je peux vous assiter médicalement ?"}]
+st.sidebar.button('Supprimez votre historique', on_click=suppression_historique_chatbot)
 
 # Fonction pour générer la réponse LLaMA2 refactorisé à partir de llama2-chatbot
 def generation_reponse_llama2(prompt_input):
-    string_dialogue = "Vous êtes un assistant utile. Vous ne répondez pas en tant que 'user' et ne prétendez pas être un 'user'. Vous ne répondez qu'une seule fois en tant que'Assistant'."
+    string_dialogue = "You are a useful 'assistant'. You do not respond as a 'user' or pretend to be a 'user'. You only respond once as an 'assistant'."
     for dict_message in st.session_state.messages:
         if dict_message["role"] == "user":
             string_dialogue += "User: " + dict_message["content"] + "\n\n"
@@ -66,7 +66,7 @@ if prompt := st.chat_input(disabled=not replicate_api):
 # Génération d'une nouvelle réponse si le dernier message ne provient pas de l'assistant
 if st.session_state.messages[-1]["role"] != "assistant":
     with st.chat_message("assistant"):
-        with st.spinner("Thinking..."):
+        with st.spinner("Chargement..."):
             response = generation_reponse_llama2(prompt)
             placeholder = st.empty()
             full_response = ''
